@@ -80,4 +80,5 @@ xmlDoc.getElementsByTagName("from")[0].childNodes[0].nodeValue;
 document.getElementById("message").innerHTML=
 xmlDoc.getElementsByTagName("body")[0].childNodes[0].nodeValue;
 ```  
-* 注意：XML DOM和HTML DOM是不同的数据类型
+* 注意：XML DOM和HTML DOM是不同的数据类型  
+XPath
