@@ -84,10 +84,12 @@ XPath:用来确定XML文档中某部分位置，如：
 
 ### YAML  
 一、基本规则  
+
 * 大小写敏感  
 * 使用缩进表示层级关系  
 * 缩进时不允许使用Tab键，只允许使用空格。  
 * 缩进的空格数目不重要，只要相同层级的元素左侧对齐即可  
+
 二、例子  
 ```
 languages:
@@ -112,10 +114,13 @@ websites:
   } 
 }
  ```  
+ 
 *  JavaScript需要借助第三方库来解析，比如js-yaml  
 
 ## 2. 集合、树、列表、Map的迭代与排序算法  
+
 ### set  
+
 一、基本概念  
 集合类似于数组，但是成员的值都是唯一的，没有重复的值。
 
@@ -139,6 +144,7 @@ for (let i of s) {
 ```
 
 二、遍历  
+
 *　在数据结构的定义中，set是无序的，即通过iterator输出，每次的顺序可能会不同（比如java）  
 *　但是在javascript的描述中：Set objects are collections of values. You can iterate through the elements of a set in insertion order. 
 
