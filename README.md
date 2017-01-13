@@ -71,14 +71,18 @@ xmlhttp.open("GET","/example/xmle/note.xml",false);
 xmlhttp.send();
 xmlDoc=xmlhttp.responseXML;
 ```  
+
 解析得到XML DOM，可以像处理DOM一样处理  
+
 ```
-document.getElementById("to").innerHTML=
-xmlDoc.getElementsByTagName("to")[0].childNodes[0].nodeValue;
-document.getElementById("from").innerHTML=
-xmlDoc.getElementsByTagName("from")[0].childNodes[0].nodeValue;
-document.getElementById("message").innerHTML=
-xmlDoc.getElementsByTagName("body")[0].childNodes[0].nodeValue;
+document.getElementById("to").innerHTML = xmlDoc.getElementsByTagName("to")[0].childNodes[0].nodeValue;
+document.getElementById("from").innerHTML = xmlDoc.getElementsByTagName("from")[0].childNodes[0].nodeValue;
+document.getElementById("message").innerHTML = xmlDoc.getElementsByTagName("body")[0].childNodes[0].nodeValue;
 ```  
+
 * 注意：XML DOM和HTML DOM是不同的数据类型  
-XPath
+XPath:用来确定XML文档中某部分位置，如：
+
+```
+/bookstore  = xmlDoc.getElementByTagName("bookstore")
+```
