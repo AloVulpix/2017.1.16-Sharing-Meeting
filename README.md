@@ -35,7 +35,8 @@ let stiJson = JSON.stringify(sti);
 let stiObject = JSON.parse(stiJson)
 ```
 
-### xml，规则包括： 
+### xml  
+一、规则包括： 
 *  XML 是一种标记语言，很类似 HTML
 *  XML 的设计宗旨是传输数据，而非显示数据
 *  XML 标签没有被预定义。您需要自行定义标签。
@@ -57,28 +58,23 @@ let stiObject = JSON.parse(stiJson)
 * 大小写敏感  
 * 正确嵌套  
 * 可配置属性  
-解析的语法
+
+二、解析的语法  
 ```
-if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {// code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
+
+let xmlhttp=new XMLHttpRequest();
+
 xmlhttp.open("GET","/example/xmle/note.xml",false);
 xmlhttp.send();
 xmlDoc=xmlhttp.responseXML;
-```  
 
-解析得到XML DOM，可以像处理DOM一样处理  
+//解析得到XML DOM，可以像处理DOM一样处理  
 
-```
 document.getElementById("to").innerHTML = xmlDoc.getElementsByTagName("to")[0].childNodes[0].nodeValue;
 document.getElementById("from").innerHTML = xmlDoc.getElementsByTagName("from")[0].childNodes[0].nodeValue;
-document.getElementById("message").innerHTML = xmlDoc.getElementsByTagName("body")[0].childNodes[0].nodeValue;
-```  
+document.getElementById("message").innerHTML = xmlDoc.getElementsByTagName("body")[0].childNodes[0].nodeValue;  
+
+```  
 
 * 注意：XML DOM和HTML DOM是不同的数据类型  
 XPath:用来确定XML文档中某部分位置，如：
