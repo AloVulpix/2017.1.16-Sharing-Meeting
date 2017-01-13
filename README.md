@@ -218,8 +218,8 @@ iter.next() // { value: undefined, done: true }
 * Symbol.iterator属性本身是一个函数，就是当前数据结构默认的遍历器生成函数。执行这个函数，就会返回一个遍历器  
 * 通过next方法遍历  
 
-## 树与JavaScript常见的两种结构
-1. Array，通过parent id对关系进行标识
+## 3. 树与JavaScript常见的两种结构
+一、 Array，通过parent id对关系进行标识
 
 ```javascript
 let tree = [{
@@ -245,7 +245,7 @@ let tree = [{
 }]
 ```
 
-2. Object，通过children对关系进行标识  
+二、 Object，通过children对关系进行标识  
 ```javascript
 let tree = {
   id: 1,
@@ -270,4 +270,301 @@ let tree = {
 }
 ```
 
-3. 两种格式的转换
+## 4. 深度遍历(DFS)和广度遍历(BFS)
+![树](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Depth-first-tree.svg/390px-Depth-first-tree.svg.png)
+DFS: 1-2-3-4-5-6-7-8-9-10-11-12  
+BFS：1-2-7-8-3-6-9-12-4-5-10-11  
+
+两种树结构的DFS和BFS的实现：
+1. List，BFS
+```
+let BFSList = [{
+		  id: 1,
+		  text: 'msg1',
+		  pid: '#'
+		}, {
+		  id: 2,
+		  text: 'msg2',
+		  pid: 1
+		}, {
+		  id: 7,
+		  text: 'msg7',
+		  pid: 1,
+		}, {
+		  id: 8,
+		  text: 'msg8',
+		  pid: 1
+		}, {
+		  id: 3,
+		  text: 'msg3',
+		  pid: 2
+		}, {
+		  id: 6,
+		  text: 'msg6',
+		  pid: 2
+		}, {
+		  id: 9,
+		  text: 'msg9',
+		  pid: 8
+		}, {
+		  id: 12,
+		  text: 'msg12',
+		  pid: 8
+		}, {
+		  id: 4,
+		  text: 'msg4',
+		  pid: 3
+		}, {
+		  id: 5,
+		  text: 'msg5',
+		  pid: 3
+		}, {
+		  id: 10,
+		  text: 'msg10',
+		  pid: 9
+		}, {
+		  id: 11,
+		  text: 'msg11',
+		  pid: 9
+		}];
+
+		let searchQueue = [];
+
+		//找根节点
+		for(let i = 0; i < BFSList.length; i++){
+			if(BFSList[i].pid == '#'){
+				searchQueue.push(BFSList[i])
+				BFSList.splice(i, 1);
+				break;
+			}
+		}
+
+		//广度优先
+		function BFS(){
+			while(searchQueue.length != 0){
+				let node = searchQueue.shift();
+				console.log(node.text);
+				for(let i = 0; i < BFSList.length; i++){
+					if(BFSList[i].pid == node.id){
+						searchQueue.push(BFSList[i])
+						BFSList.splice(i, 1);
+						i--;
+					}
+				}
+			}
+		}
+		BFS();
+```
+2. List DFS
+```
+//DFS
+		let DFSList = [{
+			  id: 1,
+			  text: 'msg1',
+			  pid: '#'
+			}, {
+			  id: 2,
+			  text: 'msg2',
+			  pid: 1
+			}, {
+			  id: 7,
+			  text: 'msg7',
+			  pid: 1,
+			}, {
+			  id: 8,
+			  text: 'msg8',
+			  pid: 1
+			}, {
+			  id: 3,
+			  text: 'msg3',
+			  pid: 2
+			}, {
+			  id: 6,
+			  text: 'msg6',
+			  pid: 2
+			}, {
+			  id: 9,
+			  text: 'msg9',
+			  pid: 8
+			}, {
+			  id: 12,
+			  text: 'msg12',
+			  pid: 8
+			}, {
+			  id: 4,
+			  text: 'msg4',
+			  pid: 3
+			}, {
+			  id: 5,
+			  text: 'msg5',
+			  pid: 3
+			}, {
+			  id: 10,
+			  text: 'msg10',
+			  pid: 9
+			}, {
+			  id: 11,
+			  text: 'msg11',
+			  pid: 9
+			}];
+
+		let visitedMAP = new Map(),
+			root = undefined;
+		
+		//找根节点
+		for(let i = 0; i < DFSList.length; i++){
+			if(DFSList[i].pid == '#'){
+				visitedMAP.set(DFSList[i], true);
+				root = DFSList[i];
+				break;
+			}
+		}
+
+		//深度优先
+		function DFS(node){
+			console.log(node.text)
+			for(let i = 0; i < DFSList.length; i++){
+				//判断是否访问过以及是不是需要找的点
+				if(DFSList[i].pid == node.id && !visitedMAP[DFSList[i]]){
+					visitedMAP.set(DFSList[i], true);
+					DFS(DFSList[i]);
+				}
+			}
+		}
+		DFS(root);
+```
+3. tree BFS
+```
+//BFS
+	 	let BFSTree = {
+		  id: 1,
+		  text: 'msg1',
+		  children: [{
+			    id: 2,
+			    text: 'msg2',
+			    children: [{
+				      id: 3,
+				      text: 'msg3',
+				      children:[{
+					      	id: 4,
+					      	text: 'msg4',
+					      	children: []
+					      }, {
+					      	id: 5,
+					      	text: 'msg5',
+					      	children: []
+					      }] 
+				    }, {
+				      id: 6,
+				      text: 'msg6',
+				      children:[] 
+				    }]
+			  }, {
+			    id: 7,
+			    text: 'msg7',
+			    children: []
+			  }, {
+			    id: 8,
+			    text: 'msg8',
+			    children: [{
+			      	id: 9,
+			      	text: 'msg9',
+			      	children: [{
+				      	id: 10,
+				      	text: 'msg10',
+				      	children: []
+				      }, {
+				      	id: 11,
+				      	text: 'msg11',
+				      	children: []
+				      }]
+			      }, {
+			      	id: 12,
+			      	text: 'msg12',
+			      	children: []
+			      }]
+			  }]
+		}
+
+		searchQueue = [];
+		searchQueue.push(BFSTree);
+
+		while(searchQueue.length != 0){
+			let node = searchQueue.shift();
+			console.log(node.text);
+			if(node.children.length != 0){
+				for(let i = 0; i < node.children.length; i++){
+					searchQueue.push(node.children[i]);
+				}
+			}
+		}
+```
+4. tree DFS
+```
+//DFS
+		let DFSTree = {
+		  id: 1,
+		  text: 'msg1',
+		  children: [{
+			    id: 2,
+			    text: 'msg2',
+			    children: [{
+				      id: 3,
+				      text: 'msg3',
+				      children:[{
+					      	id: 4,
+					      	text: 'msg4',
+					      	children: []
+					      }, {
+					      	id: 5,
+					      	text: 'msg5',
+					      	children: []
+					      }] 
+				    }, {
+				      id: 6,
+				      text: 'msg6',
+				      children:[] 
+				    }]
+			  }, {
+			    id: 7,
+			    text: 'msg7',
+			    children: []
+			  }, {
+			    id: 8,
+			    text: 'msg8',
+			    children: [{
+			      	id: 9,
+			      	text: 'msg9',
+			      	children: [{
+				      	id: 10,
+				      	text: 'msg10',
+				      	children: []
+				      }, {
+				      	id: 11,
+				      	text: 'msg11',
+				      	children: []
+				      }]
+			      }, {
+			      	id: 12,
+			      	text: 'msg12',
+			      	children: []
+			      }]
+			  }]
+		}
+
+		visitedMAP = new Map();
+		visitedMAP.set(DFSTree, true);
+		function DFST(node){
+			console.log(node.text);
+			if(node.children.length != 0){
+				for(let i = 0; i < node.children.length; i++){
+					if(!visitedMAP[node.children[i]]){
+						visitedMAP.set(node.children[i], true);
+						DFST(node.children[i])
+					}
+				}
+			}
+		}
+
+		DFST(DFSTree);
+```
