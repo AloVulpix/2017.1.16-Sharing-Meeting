@@ -271,12 +271,14 @@ let tree = {
 ```
 
 ## 4. 深度遍历(DFS)和广度遍历(BFS)
-![树](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Depth-first-tree.svg/390px-Depth-first-tree.svg.png)
+![树](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Depth-first-tree.svg/390px-Depth-first-tree.svg.png)  
 DFS: 1-2-3-4-5-6-7-8-9-10-11-12  
 BFS：1-2-7-8-3-6-9-12-4-5-10-11  
 
-两种树结构的DFS和BFS的实现：
+两种树结构的DFS和BFS的实现：  
+
 1. List，BFS
+
 ```
 let BFSList = [{
 		  id: 1,
@@ -355,7 +357,9 @@ let BFSList = [{
 		}
 		BFS();
 ```
+
 2. List DFS
+
 ```
 //DFS
 		let DFSList = [{
@@ -433,7 +437,9 @@ let BFSList = [{
 		}
 		DFS(root);
 ```
+
 3. tree BFS
+
 ```
 //BFS
 	 	let BFSTree = {
@@ -499,7 +505,9 @@ let BFSList = [{
 			}
 		}
 ```
+
 4. tree DFS
+
 ```
 //DFS
 		let DFSTree = {
@@ -567,4 +575,16 @@ let BFSList = [{
 		}
 
 		DFST(DFSTree);
+```
+
+5. 两种树结构的转换  
+List -> Tree  
+
+```
+
+```
+
+Tree -> List  
+
+```
 ```
