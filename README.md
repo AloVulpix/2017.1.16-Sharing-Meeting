@@ -277,7 +277,7 @@ BFS：1-2-7-8-3-6-9-12-4-5-10-11
 
 两种树结构的DFS和BFS的实现：  
 
-1. List，BFS
+1. Array，BFS
 
 ```
 let BFSList = [{
@@ -358,7 +358,7 @@ let BFSList = [{
 		BFS();
 ```
 
-2. List DFS
+2. Array DFS
 
 ```
 //DFS
@@ -438,7 +438,7 @@ let BFSList = [{
 		DFS(root);
 ```
 
-3. tree BFS
+3. Object BFS
 
 ```
 //BFS
@@ -506,7 +506,7 @@ let BFSList = [{
 		}
 ```
 
-4. tree DFS
+4. Object DFS
 
 ```
 //DFS
@@ -578,13 +578,96 @@ let BFSList = [{
 ```
 
 5. 两种树结构的转换  
-List -> Tree  
+Array -> Object  
 
 ```
+// array -> object
+	let List = [{
+			  id: 1,
+			  text: 'msg1',
+			  pid: '#'
+			}, {
+			  id: 2,
+			  text: 'msg2',
+			  pid: 1
+			}, {
+			  id: 7,
+			  text: 'msg7',
+			  pid: 1,
+			}, {
+			  id: 8,
+			  text: 'msg8',
+			  pid: 1
+			}, {
+			  id: 3,
+			  text: 'msg3',
+			  pid: 2
+			}, {
+			  id: 6,
+			  text: 'msg6',
+			  pid: 2
+			}, {
+			  id: 9,
+			  text: 'msg9',
+			  pid: 8
+			}, {
+			  id: 12,
+			  text: 'msg12',
+			  pid: 8
+			}, {
+			  id: 4,
+			  text: 'msg4',
+			  pid: 3
+			}, {
+			  id: 5,
+			  text: 'msg5',
+			  pid: 3
+			}, {
+			  id: 10,
+			  text: 'msg10',
+			  pid: 9
+			}, {
+			  id: 11,
+			  text: 'msg11',
+			  pid: 9
+			}];
 
+		//直接用DFS
+		visitedMAP = new Map();
+        root = undefined;
+
+        let obj = {}
+
+        //找根节点
+        for(let i = 0; i < List.length; i++){
+            if(List[i].pid == '#'){
+                visitedMAP.set(List[i], true);
+                obj.id = List[i].id;
+                obj.text = List[i].text;
+                obj.children = [];
+                root = List[i];
+                break;
+            }
+        }
+
+        //深度优先
+        function Array2Object(node){
+            node.children = [];
+            for(let i = 0; i < List.length; i++){
+                //判断是否访问过以及是不是需要找的点
+                if(List[i].pid == node.id && !visitedMAP[List[i]]){
+                    visitedMAP.set(List[i], true);
+                    node.children.push(List[i])
+                    Array2Object(List[i]);
+                }
+            }
+        }
+        Array2Object(obj);
+        console.log(obj);
 ```
 
-Tree -> List  
+Object -> Array  
 
 ```
+太简单，不写了
 ```
