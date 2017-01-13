@@ -54,6 +54,7 @@ let stiObject = JSON.parse(stiJson)
 </sti>
 ```  
 
+
 * 大小写敏感  
 * 正确嵌套  
 * 可配置属性  
