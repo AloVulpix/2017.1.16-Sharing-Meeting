@@ -81,6 +81,14 @@ document.getElementById("message").innerHTML = xmlDoc.getElementsByTagName("body
 XPath：用来确定XML文档中某部分位置的语言，语法规则很简单，如：
 
 ```
+nodename
+/
+//
+.
+..
+@
+
+//example:
 /bookstore  = xmlDoc.getElementByTagName("bookstore")
 ```  
 
