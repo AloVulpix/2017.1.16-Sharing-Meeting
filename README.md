@@ -682,7 +682,10 @@ Array -> Object
         console.log(obj);
 ```
 
-Object -> Array  
+DFS循环调用同一个函数，有清晰的结构关系；  
+而BFS是判断辅助队列，需要额外标识树的关系。  
+
+Object -> Array  
 
 ```
 太简单，不写了
