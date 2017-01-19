@@ -158,8 +158,8 @@ for (let i of s) {
 *　在数据结构的定义中，set是无序的，即通过iterator输出，每次的顺序可能会不同（比如java）  
 *　但是在javascript的描述中：Set objects are collections of values. You can iterate through the elements of a set in insertion order. 
 
-keys：返回键名key的iterator，通过next调用  
-values：返回值value的iterator，  
+keys：返回键名key的iterator，通过next调用    
+values：返回值value的iterator，    
 entries：返回key-value对的iterator  
 forEach：forEach(function(value, key){})  
 
