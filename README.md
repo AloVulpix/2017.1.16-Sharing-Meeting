@@ -160,8 +160,8 @@ for (let i of s) {
 
 keys：返回键名key的iterator，通过next调用    
 values：返回值value的iterator，    
-entries：返回key-value对的iterator  
-forEach：forEach(function(value, key){})  
+entries：返回key-value对的iterator      
+forEach：forEach(function(value, key){})    
 
 * 可通过Array.from()转为Array，通过sort排序
 
@@ -181,8 +181,10 @@ var map = new Map([
 ```  
 二、遍历  
 同样是无序的。在JavaScript中：A Map object iterates its elements in insertion order — a for...of loop returns an array of [key, value] for each iteration.  
-同样有keys、values、entries、forEach方法  
-三、排序  
+同样有keys、values、entries、forEach方法    
+
+
+三、排序  
 没有原生的key/value排序的方法（其实就是Object排序）  
 
 ```javascript
