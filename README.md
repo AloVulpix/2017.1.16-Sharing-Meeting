@@ -76,7 +76,8 @@ document.getElementById("message").innerHTML = xmlDoc.getElementsByTagName("body
 
 ```  
 
-* 注意：XML DOM可以直接插入到HTML DOM树中
+* 注意：XML DOM可以直接插入到HTML DOM树中  
+
 XPath:用来确定XML文档中某部分位置，如：
 
 ```
