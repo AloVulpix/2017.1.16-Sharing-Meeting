@@ -75,6 +75,56 @@ class Watcher {
     }
 }
 ```
+在new Watcher的时候触发get
+```
+class Dep {
+    constructor () {
+        this.subs = []
+    }
+    addSub () {
+        this.subs.push(Dep.target)
+    }
+    notify () {
+        for(let i = 0; i < this.subs.length; i++){
+            this.subs[i].fn()
+        }
+    }
+}
+Dep.target = null
+function pushTarget(watch){
+    Dep.target = watch
+}
+
+class Watch {
+    constructor (exp, fn) {
+        this.exp = exp
+        this.fn = fn
+        pushTarget(this)
+        data[exp]
+    }
+}
+
+===================
+function defineReactive (data, key, val) {
+    observer(val)
+    let dep = new Dep()        // 新增
+    Object.defineProperty(data, key, {
+        enumerable: true,
+        configurable: true,
+        get: function () {
+            dep.addSub()    // 新增
+            return val
+        },
+        set: function (newVal) {
+            if(val === newVal){
+                return
+            }
+            observer(newVal)
+            dep.notify()    // 新增
+        }
+    })
+}
+```
 
 ## 其他的思考方式
 RxJs
