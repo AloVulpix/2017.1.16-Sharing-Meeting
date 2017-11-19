@@ -1,0 +1,80 @@
+# 响应式与数据绑定
+
+## 前世今生
+
+## 响应式的实现
+通过订阅者模式进行实现
+```
+var data = {
+    a: 1,
+    b: {
+        c: 2
+    }
+}
+
+observer(data)
+
+new Watcher('a', () => {
+    alert(9)
+})
+
+new Watcher('b.c', () => {
+    alert(80)
+})
+```
+建立observer和Watcher之间的联系
+```
+class Observer {
+    constructor (data) {
+        this.walk(data)
+    }
+    walk (data) {
+        // 遍历 data 对象属性，调用 defineReactive 方法
+        let keys = Object.keys(data)
+        for(let i = 0; i < keys.length; i++){
+            defineReactive(data, keys[i], data[keys[i]])
+        }
+    }
+}
+
+// defineReactive方法仅仅将data的属性转换为访问器属性
+function defineReactive (data, key, val) {
+    // 递归观测子属性
+    observer(val)
+
+    Object.defineProperty(data, key, {
+        enumerable: true,
+        configurable: true,
+        get: function () {
+            return val
+        },
+        set: function (newVal) {
+            if(val === newVal){
+                return
+            }
+            // 对新值进行观测
+            observer(newVal)
+        }
+    })
+}
+
+// observer 方法首先判断data是不是纯JavaScript对象，如果是，调用 Observer 类进行观测
+function observer (data) {
+    if(Object.prototype.toString.call(data) !== '[object Object]') {
+        return
+    }
+    new Observer(data)
+}
+
+===================
+class Watcher {
+    constructor (exp, fn) {
+        this.exp = exp
+        this.fn = fn
+        data[exp]
+    }
+}
+```
+
+## 其他的思考方式
+RxJs
