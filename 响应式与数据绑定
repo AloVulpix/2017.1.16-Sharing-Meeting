@@ -4,6 +4,7 @@
 
 ## 响应式的实现
 通过订阅者模式进行实现
+
 ```
 var data = {
     a: 1,
@@ -22,7 +23,9 @@ new Watcher('b.c', () => {
     alert(80)
 })
 ```
+
 建立observer和Watcher之间的联系
+
 ```
 class Observer {
     constructor (data) {
@@ -75,7 +78,9 @@ class Watcher {
     }
 }
 ```
+
 在new Watcher的时候触发get
+
 ```
 class Dep {
     constructor () {
