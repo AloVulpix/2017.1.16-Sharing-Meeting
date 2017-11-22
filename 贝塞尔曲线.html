@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+
+<svg width="500" height="500" style="border: 1px solid #000;" display="block">
+    <path id="curve" ></path>
+</svg>
+<span>参考点个数：</span><span id="count"></span>
+
+<!--
+<svg width="500" height="500" style="border: 1px solid #000;" display="block">
+    <path d="M0 0Q50 50,100 0" stroke="#000000" fill="none" style="stroke-width: 2px;"></path>
+</svg>
+
+
+<svg width="500" height="500" style="border: 1px solid #000;" display="block">
+    <path d="M0 0 C114,0 200,200 314,200" stroke="#000000" fill="none" style="stroke-width: 2px;"></path>
+</svg>
+
+<svg width="500" height="500" style="border: 1px solid #000;" display="block">
+    <path d="M0 200 C114,200 200,0 314,0" stroke="#000000" fill="none" style="stroke-width: 2px;"></path>
+</svg>
+
+
+<svg width="1500" height="500" style="border: 1px solid #000;" display="block">
+    <path d="M0 0 
+    C114,0 200,200 314,200
+    C428,200 514,0 628,0
+    C742,0 828,200 942,200
+    " stroke="#000000" fill="none" style="stroke-width: 2px;"></path>
+</svg>
+-->
+
+<script type="text/javascript">
+//var a = [[0,0],[250,500],[500,0]];
+//var a = [[0,0],[334,166],[166,334],[500,0]];
+var a = [[0,0],[125,250],[250,500],[375,250],[500,0]];
+
+drawCurve(a,0.001,"curve");
+document.getElementById("count").innerHTML= a.length;
+
+/*
+2016.1.29 menghao-s
+
+参数:controlPoint,speed
+controlPoint:参考点数组，长度大于等于2
+speed:0~1，画线速度
+tagId:标签ID
+*/
+function drawCurve(controlPoint,speed,tagId){
+	var idCurve = document.getElementById(tagId);
+	var curveValue = "M" + controlPoint[0][0] + " " + controlPoint[0][1];
+	var tempCenter;
+	var count=1/speed;
+
+	for(var i=1;i<=count;i++){
+		(function(j){
+			setTimeout(function(){
+				//画曲线
+				tempCenter = loopCalculateProportionPoint(controlPoint,j/count);
+				curveValue = curveValue + "L" + tempCenter[0] + " " + tempCenter[1];
+				idCurve.setAttribute("d",curveValue);
+				idCurve.setAttribute("stroke","#000000");
+				idCurve.setAttribute("fill","none");
+				idCurve.setAttribute("style","stroke-width: 2px;");
+			},j);
+		})(i);
+	}
+}
+
+//循环n-1次计算参考点，每次数组长度减1，直到最后一个(Ps:通过倒数第二个结果可以计算方向，即斜率，切线)
+function loopCalculateProportionPoint(calculatePoint,prop){
+	var arr = calculatePoint;
+	var _length = arr.length;
+	for(var indexCalPoiArr = 0; indexCalPoiArr<_length - 1; indexCalPoiArr++){
+		var temp = [];
+		for(var indexArr = 0; indexArr<arr.length -1; indexArr++){
+			temp.push(calculateProportionPoint(arr[indexArr],arr[indexArr+1],prop));				
+		}
+		arr = temp;
+	}
+	return arr[0];
+}
+
+//[k*(x2-x1)+x1,k*(y2-y1)+y1]
+function calculateProportionPoint(arr1,arr2,prop){
+	return [prop*(arr2[0]-arr1[0])+arr1[0] ,prop*(arr2[1]-arr1[1])+arr1[1]];
+}
+		
+
+
+</script>
+</body>
+</html>
